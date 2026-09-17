@@ -17,11 +17,13 @@ def step_impl(context, path):
     context.evaluator.set_template(template)
 
 
+@given('the resource "{name}" will output:')
 @given('the resource "{name}" will output')
 def step_impl(context, name):
     context.evaluator.add_mock(name, json.loads(context.text))
 
 
+@given("I have params:")
 @given("I have params")
 def step_impl(context):
     if context.table is not None:

@@ -4,6 +4,7 @@ from cfn_flip import to_json
 from cfneval import TemplateEvaluator
 
 
+@given('the inline cfn template:')
 @given('the inline cfn template')
 def step_impl(context):
     context.evaluator = TemplateEvaluator()

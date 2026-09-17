@@ -1,7 +1,12 @@
 import os
 import sys
 from behave import __version__ as behave_version
-from behave.configuration import ConfigError, Configuration
+from behave.configuration import Configuration
+
+try:
+    from behave.configuration import ConfigError
+except ImportError:
+    from behave.exception import ConfigError
 from behave.runner import Runner
 
 
@@ -74,6 +79,10 @@ class CustomRunner(Runner):
             from behave.runner_util import load_step_modules
 
             load_step_modules([os.path.dirname(__file__) + "/steps"])
+
+            project_steps_dir = os.path.join(self.base_dir, self.config.steps_dir)
+            if os.path.isdir(project_steps_dir):
+                super(CustomRunner, self).load_step_definitions(extra_step_paths)
 
 
 def main(args=None):

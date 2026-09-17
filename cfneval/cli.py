@@ -21,11 +21,11 @@ def cli(params, template_path, output, account_id, region):
     with open(template_path, "r") as f:
         contents = f.read()
     try:
-        template = json.loads(to_json(contents))
-        fmt = "yaml"
-    except:
         template = json.loads(contents)
         fmt = "json"
+    except ValueError:
+        template = json.loads(to_json(contents))
+        fmt = "yaml"
 
     evaluator.set_template(template)
     evaluator.generate_effective_template()
